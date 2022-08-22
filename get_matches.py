@@ -1,5 +1,3 @@
-from fileinput import filename
-from http.client import OK
 import json, time, os
 import config
 import requests
@@ -7,7 +5,7 @@ import requests
 
 def download_matches():
     #!   match_id = 6671700940
-    start_id = 6661486897   # 6661472400
+    start_id = 6670054563   # 6661472400
 
     # Переменная с адресом сервера в интернете
     root_url = 'https://api.steampowered.com'
@@ -15,7 +13,7 @@ def download_matches():
     url = root_url + endpoint  # Формируем ссылку без параметров
     api_key = config.STEAM_API_KEY
 
-    for i in range(5000):
+    for i in range(200000):
         query_params = {
             'key': api_key,
             'partner': 0,

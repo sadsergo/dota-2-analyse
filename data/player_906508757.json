@@ -1,0 +1,21 @@
+{
+    "win": 0.53,
+    "kills": 7.4,
+    "deaths": 8.98,
+    "assists": 12.08,
+    "last_hits": 124.17,
+    "denies": 4.56,
+    "gold_per_min": 482.32,
+    "xp_per_min": 738.68,
+    "level": 22.68,
+    "net_worth": 15099.78,
+    "hero_damage": 2239.33,
+    "tower_damage": 134.38,
+    "hero_healing": 96.46,
+    "gold_spent": 1871.65,
+    "scaled_hero_damage": 1013.45,
+    "scaled_tower_damage": 63.57,
+    "scaled_hero_healing": 31.02,
+    "matches": 100,
+    "radiant": 0.47
+}
