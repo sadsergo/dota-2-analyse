@@ -6,6 +6,7 @@
 /package-lock.json
 /package.json
 /__pycache__
+/data
 
 #ignore all json
 *.json

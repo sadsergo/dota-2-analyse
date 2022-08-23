@@ -181,7 +181,7 @@ def GetMatchHistoryBySequenceNum():
             print(match['match_id'])
 
 
-account_id = 241992999  # 241992999  # 178749178
+account_id = 178749178  # 241992999  # 178749178
 game_mode = 0
 match_requested = 10
 
