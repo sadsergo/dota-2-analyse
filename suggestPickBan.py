@@ -108,7 +108,7 @@ def suggestPick(enemy):
         data = json.load(f)
         f.close()
 
-    print(f'Against {enemy}:')
+    print(f'Suggest pick against {enemy}:')
     
     count = 0
     for hero in reversed(data[enemy].keys()):
@@ -125,7 +125,7 @@ def suggestBan(hero):
         data = json.load(f)
         f.close()
 
-    print(f'Ban against {hero}:')
+    print(f'Suggest ban against {hero}:')
 
     count = 0
     for enemy in data[hero].keys():
