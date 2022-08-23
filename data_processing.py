@@ -1,7 +1,5 @@
-from ast import MatchSequence
 import os, json
 import pandas as pd
-import dota2api
 from config import STEAM_API_KEY
 import matplotlib as plt
 import matplotlib.pyplot as pp
@@ -100,8 +98,6 @@ def collect_bans_picks():
     with open('pick_ban_info.json', 'w') as f:
         json.dump(data, f, indent=4)
         f.close()
-
-    
 
 
 def show_graph_ban():
@@ -218,31 +214,103 @@ def show_graph_pick():
     pp.show()
 
 
-def get_most_pop_hero():
-    df = pd.read_json('pick_ban_info.json')
-    df.to_csv('pick_ban_info.csv', encoding='utf-8', index=False)
-
-    df = pd.read_csv('pick_ban_info.csv')
-
-    #temp = df.loc(df[])
-
-
 def calculate_wr_each_hero():
     matches = []
-    win_rate = []
+    win_rate = {}
 
     with open('pick_ban_info.json', 'r') as f:
         matches = json.load(f)
         f.close()
+    
+    hero_names = []
+
+    with open('hero_stats.json', 'r') as f:
+        data = json.load(f)
+
+        for hero in data:
+            hero_names.append(hero['name'])
+
+        f.close()
+
+    for hero in hero_names:
+        rate = {}
+        for enemy in hero_names:
+            if hero != enemy and enemy != 0 and hero != 0:
+                rate[enemy] = 0
+        
+        win_rate[hero] = rate
+    
+    for match in matches:
+        win_team = 'radiant_pick' if match['radiant_win'] else 'dire_pick'
+        lose_team = 'dire_pick' if match['radiant_win'] else 'radiant_pick'
+
+        for win_hero in match[win_team]:
+            for lose_hero in match[lose_team]:
+                if lose_hero != 0 and win_hero != 0 and lose_hero != win_hero:
+                    win_rate[win_hero][lose_hero] += 1
+                else:
+                    break
+    
+    with open('win_rate.json', 'w') as f:
+        json.dump(win_rate, f, indent=4)
+        f.close()
+
+
+def json_to_cvs(json_file):
+    df = pd.read_json(json_file + '.json')
+    df = df.fillna(0)
+
+    df.to_csv(json_file + '.csv', encoding='utf-8', index=False)
+
+
+def create_data_for_predictions():
+    with open('backend/data_proc/data/pick_ban_info.json', 'r') as f:
+        matches = json.load(f)
+        f.close()
+
+    with open('backend/data_proc/data/hero_stats.json', 'r') as f:
+        heroes = json.load(f)
+        f.close()
 
     for match in matches:
-        for i in range(1, 11):
-            if not match['radiant_pick'][i] in win_rate.keys() or not match['dire_pick'][i] in win_rate.keys():
-                win_rate[match['radiant_pick'][i]] = []
-            else:
-                win_rate[match['radiant_pick'][i]] += 1
+        # del match['duration']
+        del match['match_id']
+        match['first_team_ban'] 
+
+        if 'radiant_ban' in match.keys():
+            del match['radiant_ban']
+        if 'dire_ban' in match.keys():
+            del match['dire_ban']
+
+        radiant_pick = match['radiant_pick']
+        del match['radiant_pick']
+
+        for i in range(len(radiant_pick)):
+            match['radiant_' + str(i + 1)] = radiant_pick[i]
+        
+        dire_pick = match['dire_pick']
+        del match['dire_pick']
+
+        for i in range(len(dire_pick)):
+            match['dire_' + str(i + 1)] = dire_pick[i]
+
+    with open('backend/data_proc/data/data_for_predict.json', 'w') as f:
+        json.dump(matches, f, indent=4)
+
+    df = pd.read_json('backend/data_proc/data/data_for_predict.json')
+    df = df.fillna(0)
+    df.to_csv('backend/data_proc/data/data_for_predict.csv', encoding='utf-8', index=False)
+
+    print(df.head())
+
+d = calculate_wr_each_hero()
+print(float(d['alchemist']['morphling']) / (d['alchemist']['morphling'] + d['morphling']['alchemist']))
 
 
-collect_bans_picks()
-#show_graph_ban()
-#show_graph_pick()
+#!  collect_bans_picks()
+#* show_graph_ban()
+#* show_graph_pick()
+
+#calculate_wr_each_hero()
+# json_to_cvs('win_rate')
+create_data_for_predictions()
