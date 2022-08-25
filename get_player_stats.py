@@ -181,15 +181,17 @@ def GetMatchHistoryBySequenceNum():
             print(match['match_id'])
 
 
-account_id = 178749178  # 241992999  # 178749178
-game_mode = 0
-match_requested = 10
+def show_player_stats():
+    account_id = 178749178  # 241992999  # 178749178
+    game_mode = 0
+    match_requested = 10
 
-data = process_player_data(account_id, game_mode, match_requested)
+    data = process_player_data(account_id, game_mode, match_requested)
 
-if data is not None:
-    with open(os.getcwd() + '/data/player_' + str(account_id) + '.json', 'w') as f:
-        json.dump(data, f, indent=4)
-        f.close()
+    if data is not None:
+        with open(os.getcwd() + '/data/player_' + str(account_id) + '.json', 'w') as f:
+            json.dump(data, f, indent=4)
+            f.close()
+
 
 #GetMatchHistoryBySequenceNum()
