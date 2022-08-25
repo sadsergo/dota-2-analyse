@@ -10,3 +10,5 @@
 
 #ignore all json
 *.json
+#ignore all exe
+*.exe
