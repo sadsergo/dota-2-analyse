@@ -140,6 +140,6 @@ def suggestBan(hero):
 # sortWinRate()
 # createHeroesMatchWinRateFile()
 
-name = 'pangolier'
+name = 'tiny'
 suggestPick(name)
 suggestBan(name)
