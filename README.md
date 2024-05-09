@@ -7,3 +7,5 @@ By the way, my first plan steps are:
   2. Calcualte win rate people who are in the match with you or just a man whose steam id you know
   3. Predict whose team pick is better
   4. Show a lot info about the players
+
+###  main part - research.ipynb
