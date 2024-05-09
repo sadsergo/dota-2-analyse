@@ -1,4 +1,3 @@
-
 import json
 from textwrap import indent 
 import requests
@@ -181,17 +180,18 @@ def GetMatchHistoryBySequenceNum():
             print(match['match_id'])
 
 
-def show_player_stats():
-    account_id = 178749178  # 241992999  # 178749178
+def show_player_stats(steam_id):
+    # account_id = 178749178  # 241992999  # 178749178
     game_mode = 0
     match_requested = 10
 
-    data = process_player_data(account_id, game_mode, match_requested)
+    data = process_player_data(steam_id, game_mode, match_requested)
 
     if data is not None:
-        with open(os.getcwd() + '/data/player_' + str(account_id) + '.json', 'w') as f:
-            json.dump(data, f, indent=4)
+        with open(os.getcwd() + '/data/player_' + str(steam_id) + '.json', encoding='utf-8', mode='w') as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
             f.close()
 
 
-#GetMatchHistoryBySequenceNum()
+# GetMatchHistoryBySequenceNum()
+# show_player_stats(178749178)
