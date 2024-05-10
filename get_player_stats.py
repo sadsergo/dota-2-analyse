@@ -190,7 +190,6 @@ def show_player_stats(steam_id):
     if data is not None:
         with open(os.getcwd() + '/data/player_' + str(steam_id) + '.json', encoding='utf-8', mode='w') as f:
             json.dump(data, f, indent=4, ensure_ascii=False)
-            f.close()
 
 
 # GetMatchHistoryBySequenceNum()
